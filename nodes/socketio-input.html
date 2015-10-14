@@ -1,6 +1,6 @@
 <script type="text/javascript">
     RED.nodes.registerType('socketio-input',{
-        category: 'socketio',
+        category: 'input',
         color: '#a6bbcf',
         defaults: {
             name: {value: ""},
@@ -27,5 +27,7 @@
 </script>
 
 <script type="text/x-red" data-help-name="socketio-input">
-    <p>A Socket.io input node. Listens for <b>"msg"</b> events that have an <b>event</b> property equal with the <b>Event</b> config value (by default <i>message</i>). The event <b>data</b> property is forwarded in <b>msg.payload</b></p>
+    <p>A Socket.io input node. Listens for <b>"msg"</b> events that have an <b>event</b>
+     property equal with the <b>Event</b> config value (by default <i>message</i>). 
+     The event <b>data</b> property is forwarded in <b>msg.payload</b></p>
 </script>
