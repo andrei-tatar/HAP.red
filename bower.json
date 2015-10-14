@@ -1,0 +1,23 @@
+{
+  "name": "NodeRedHomeAutomation",
+  "main": "index.js",
+  "version": "1.0.0",
+  "authors": [
+    "Andrei Tatar <ATATAR@isoftwaresystems.com>"
+  ],
+  "description": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "socket.io": "~1.3.7"
+  }
+}
