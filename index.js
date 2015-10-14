@@ -1,7 +1,7 @@
 var http = require('http');
 var express = require("express");
 var nodeRed = require("node-red");
-
+var path = require("path");
 
 var app = express();
 
@@ -16,6 +16,8 @@ var settings = {
     httpAdminRoot:"/red",
     httpNodeRoot: "/api",
     userDir:"nodered",
+    nodesDir: path.join(__dirname, "nodes"),
+    verbose: true,
     functionGlobalContext: { }    // enables global context
 };
 

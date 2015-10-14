@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-	"install": "bower install"
+    "install": "bower install"
   },
   "author": "Andrei Tatar",
   "license": "ISC",
   "dependencies": {
     "express": "^4.13.3",
-    "node-red": "^0.11.2"
+    "node-red": "^0.11.2",
+    "socket.io": "^1.3.7"
   }
 }
