@@ -8,7 +8,9 @@ module.exports = function(RED) {
     
     var events = new EventEmitter();
     io.on('connection', function(socket){
-        socket.on('msg', events.emit.bind(events, ['msg']));
+        socket.on('msg', function (msg) {
+            events.emit('msg', msg, socket);
+        });
     });
     
     function SocketIoInputNode(config) {
@@ -16,9 +18,9 @@ module.exports = function(RED) {
         var node = this;
 
         var event = config.event;
-        var handler = function(msg) {
+        var handler = function(msg, socket) {
             if (msg.event === event)
-            node.send({payload: msg.data});
+                node.send({payload: msg.data, socketio_id: socket.id});
         }; 
         
         events.on('msg', handler);
@@ -28,5 +30,5 @@ module.exports = function(RED) {
         });
     }
     
-    RED.nodes.registerType("socketio-input", SocketIoInputNode);
+    RED.nodes.registerType("web in", SocketIoInputNode);
 };

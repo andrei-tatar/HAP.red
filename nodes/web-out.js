@@ -8,12 +8,21 @@ module.exports = function(RED) {
     function SocketIoOutputNode(config) {
         RED.nodes.createNode(this, config);
         this.on('input', function(msg) {
-            io.emit('msg', {
+            var to = io;
+            
+            if (config.sendto === 'sender') {
+                var socket = io.sockets.connected[msg.socketio_id];
+                if (!socket)
+                    throw new Error("web: trying to send message to a missing or closed socket");
+                to = socket;
+            }
+            
+            to.emit('msg', {
                 event: msg.event || config.event, 
                 data: msg.payload 
             });
         });
     }
     
-    RED.nodes.registerType("socketio-output", SocketIoOutputNode);
+    RED.nodes.registerType("web out", SocketIoOutputNode);
 };

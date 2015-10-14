@@ -2,21 +2,21 @@
 
 var app = angular.module('hap', ['ngMaterial']);
 
-app.controller('MainCtrl', function($mdSidenav, Events) {
+app.controller('MainCtrl', ['$mdSidenav', 'webEvents', function($mdSidenav, events) {
   this.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
   
   this.send = function() {
-	  Events.emit("message", "It Works!");
+	  events.emit("message", "It Works!");
   };
   
-  Events.on("message", function (msg) {
+  events.on("message", function (msg) {
     console.log(msg);
   });
-});
+}]);
 
-app.service('Events', function() {
+app.service('webEvents', function() {
   var socket = io();
   var handlers = {};
   
