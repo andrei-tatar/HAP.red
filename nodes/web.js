@@ -4,11 +4,26 @@ var EventEmitter = require('events');
 module.exports = function(RED) {
     var events = new EventEmitter();
     var io = socketio(RED.server);
-    io.on('connection', function(socket){
+    var connectedCount = 0;
+    io.on('connection', function(socket) {
+        connectedCount++;
+        events.emit('connections');
         socket.on('msg', function (msg) {
             events.emit('msg', msg, socket);
         });
+        socket.on('disconnect', function(){
+            connectedCount--;
+            events.emit('connections');
+        });
     });
+    
+    function updateNodeStatus(node) {
+        node.status({
+            fill: (connectedCount == 0 ? "grey":"blue"), 
+            shape: "dot",
+            text: connectedCount + " connected"
+        });
+    }
     
     function SocketIoInputNode(config) {
         RED.nodes.createNode(this,config);
@@ -19,6 +34,9 @@ module.exports = function(RED) {
             if (msg.event === event)
                 node.send({payload: msg.data, socketio_id: socket.id});
         }; 
+        
+        updateNodeStatus(node);
+        events.on('connections', function() {updateNodeStatus(node);});
         
         events.on('msg', handler);
         node.on("close", function (done) {
@@ -31,6 +49,11 @@ module.exports = function(RED) {
     
     function SocketIoOutputNode(config) {
         RED.nodes.createNode(this, config);
+        var node = this;
+        
+        updateNodeStatus(node);
+        events.on('connections', function() {updateNodeStatus(node);});
+        
         this.on('input', function(msg) {
             var to;
             
