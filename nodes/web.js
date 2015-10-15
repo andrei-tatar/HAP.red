@@ -25,7 +25,7 @@ module.exports = function(RED) {
         });
     }
     
-    function SocketIoInputNode(config) {
+    function WebInputNode(config) {
         RED.nodes.createNode(this,config);
         var node = this;
 
@@ -45,9 +45,9 @@ module.exports = function(RED) {
         });
     }
     
-    RED.nodes.registerType("web in", SocketIoInputNode);
+    RED.nodes.registerType("web in", WebInputNode);
     
-    function SocketIoOutputNode(config) {
+    function WebOutputNode(config) {
         RED.nodes.createNode(this, config);
         var node = this;
         
@@ -75,5 +75,5 @@ module.exports = function(RED) {
         });
     }
     
-    RED.nodes.registerType("web out", SocketIoOutputNode);
+    RED.nodes.registerType("web out", WebOutputNode);
 };
