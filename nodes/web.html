@@ -1,3 +1,38 @@
+<!--web in---------------------------->
+<script type="text/javascript">
+    RED.nodes.registerType('web in',{
+        category: 'input',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value: ""},
+            event: {value: "message"}
+        },
+        inputs:0,
+        outputs:1,
+        icon: "socketio.png",
+        label: function() {
+            return this.name||"web";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="web in">
+    <div class="form-row">
+        <label for="node-input-event"><i class="icon-tasks"></i> Event</label>
+        <input type="text" id="node-input-event" placeholder="Event Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="web in">
+    <p>A web app input node. Listens for events of type <b>Event</b> config value (by default <i>message</i>). 
+    The event <b>data</b> property is forwarded in <b>msg.payload</b></p>.
+</script>
+
+<!--web out---------------------------->
 <script type="text/javascript">
     RED.nodes.registerType('web out',{
         category: 'output',
