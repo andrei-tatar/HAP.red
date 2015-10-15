@@ -1,5 +1,5 @@
 {
-  "name": "home-automation",
+  "name": "HAP.red",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "install": "bower install"
   },
-  "author": "Andrei Tatar",
-  "license": "ISC",
+  "author": "Andrei Tatar <tatarandrei@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.13.3",
     "node-red": "^0.11.2",

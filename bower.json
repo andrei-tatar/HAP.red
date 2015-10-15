@@ -1,9 +1,9 @@
 {
-  "name": "NodeRedHomeAutomation",
+  "name": "HAP.red",
   "main": "index.js",
   "version": "1.0.0",
   "authors": [
-    "Andrei Tatar <ATATAR@isoftwaresystems.com>"
+    "Andrei Tatar <tatarandrei@gmail.com>"
   ],
   "description": "",
   "moduleType": [],
