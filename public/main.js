@@ -1,6 +1,6 @@
 var app = angular.module('hap', ['ngMaterial', 'ngNewRouter']);
 
-app.controller('MainCtrl', ['$mdSidenav', '$window', '$router', MainController]);
+app.controller('MainController', ['$mdSidenav', '$window', '$router', MainController]);
 
 function MainController($mdSidenav, $window, $router) {
   $router.config([
