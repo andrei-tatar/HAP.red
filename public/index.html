@@ -19,7 +19,11 @@
     <div layout="row" flex>
         <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
             <md-list>
-                <md-list-item ng-click="main.openEditor()">
+                <md-subheader class="md-no-sticky">Menu</md-subheader>
+                <md-list-item ng-click="main.go('home')">
+                    <p>Home</p>
+                </md-list-item>
+                <md-list-item ng-click="main.go('editor')">
                     <p>Editor</p>
                 </md-list-item>
             </md-list>
@@ -38,5 +42,6 @@
     <script src="services/events.js"></script>
     
     <script src="components/home/home.js"></script>
+    <script src="components/editor/editor.js"></script>
 </body>
 </html>

@@ -1,18 +1,19 @@
 var app = angular.module('hap', ['ngMaterial', 'ngNewRouter']);
 
-app.controller('MainController', ['$mdSidenav', '$window', '$router', MainController]);
+app.controller('MainController', ['$mdSidenav', '$window', '$router', '$location', MainController]);
 
-function MainController($mdSidenav, $window, $router) {
+function MainController($mdSidenav, $window, $router, $location) {
   $router.config([
     { path: '/', redirectTo: '/home' },
-    { path: '/home', component: 'home' }
+    { path: '/home', component: 'home' },
+    { path: '/editor', component: 'editor' }
   ]);
   
   this.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
   
-  this.openEditor = function() {
-    $window.open('/red', '_blank');
-  };
+  this.go = function(where) {
+    $location.path(where);
+  }
 }
