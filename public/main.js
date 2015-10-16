@@ -1,6 +1,8 @@
 var app = angular.module('hap', ['ngMaterial', 'ngNewRouter']);
 
-app.controller('MainCtrl', ['$mdSidenav', '$window', '$router', function($mdSidenav, $window, $router) {
+app.controller('MainCtrl', ['$mdSidenav', '$window', '$router', MainController]);
+
+function MainController($mdSidenav, $window, $router) {
   $router.config([
     { path: '/', redirectTo: '/home' },
     { path: '/home', component: 'home' }
@@ -13,5 +15,4 @@ app.controller('MainCtrl', ['$mdSidenav', '$window', '$router', function($mdSide
   this.openEditor = function() {
     $window.open('/red', '_blank');
   };
-}]);
-
+}

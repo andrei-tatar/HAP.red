@@ -1,10 +1,12 @@
 angular.module('hap')
-  .controller('HomeController', ['webEvents', function (events) {
-    this.send = function() {
-      events.emit("message", "It Works!");
-    };
+  .controller('HomeController', ['webEvents', HomeController]);
   
-    events.on("message", function (msg) {
-      console.log(msg);
-    });
-  }]);
+function HomeController(events) {
+  this.send = function() {
+    events.emit("message", "It Works!");
+  };
+
+  events.on("message", function (msg) {
+    console.log(msg);
+  });
+}
