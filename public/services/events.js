@@ -1,4 +1,6 @@
-angular.module('hap').service('webEvents', function() {
+angular.module('hap').service('WebEvents', WebEvents);
+
+function WebEvents() {
   var socket = io();
   var handlers = {};
   
@@ -20,4 +22,4 @@ angular.module('hap').service('webEvents', function() {
       handlers[event] = eventHandlers = [];
     eventHandlers.push(handler);
   };
-});
+}

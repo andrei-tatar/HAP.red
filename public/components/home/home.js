@@ -1,5 +1,5 @@
 angular.module('hap')
-  .controller('HomeController', ['webEvents', HomeController]);
+  .controller('HomeController', ['WebEvents', HomeController]);
   
 function HomeController(events) {
   this.send = function() {
