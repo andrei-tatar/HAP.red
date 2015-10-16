@@ -1,6 +1,6 @@
 var app = angular.module('hap', ['ngMaterial']);
 
-app.controller('MainCtrl', ['$mdSidenav', 'webEvents', function($mdSidenav, events) {
+app.controller('MainCtrl', ['$mdSidenav', 'webEvents', '$window', function($mdSidenav, events, $window) {
   this.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
@@ -12,5 +12,9 @@ app.controller('MainCtrl', ['$mdSidenav', 'webEvents', function($mdSidenav, even
   events.on("message", function (msg) {
     console.log(msg);
   });
+  
+  this.openEditor = function() {
+    $window.open('/red', '_blank');
+  };
 }]);
 
