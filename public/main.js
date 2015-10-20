@@ -6,7 +6,6 @@ function MainController($mdSidenav, $window, $router, $location) {
   $router.config([
     { path: '/', redirectTo: '/home' },
     { path: '/home', component: 'home' },
-    { path: '/editor', component: 'editor' }
   ]);
   
   this.toggleSidenav = function(menuId) {
@@ -15,5 +14,9 @@ function MainController($mdSidenav, $window, $router, $location) {
   
   this.go = function(where) {
     $location.path(where);
+  }
+  
+  this.openEditor = function() {
+    $window.open('/red', '_blank');
   }
 }
