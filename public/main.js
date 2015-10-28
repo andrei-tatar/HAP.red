@@ -24,8 +24,8 @@ function MainController($mdSidenav, $window, loader, controlSync) {
 
   loader.load().then(function(result) {
     main.tabs = result.tabs;
-    controlSync.sync(main.tabs);
     main.title = result.title;
-    main.selectedTab = main.tabs[0];
+    main.select(main.tabs[0]);
+    controlSync.sync(main.tabs);
   });
 }
