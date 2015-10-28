@@ -1,0 +1,40 @@
+<script type="text/javascript">
+    RED.nodes.registerType('text',{
+        category: 'ui',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value: ''},
+            textId: {value: '', required: true},
+            sendto: {value: "all", required: true}
+        },
+        inputs:1,
+        outputs:0,
+        align: "right",
+        icon: "ui.png",
+        label: function() {
+            return this.name || ("update text " + this.textId);
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="text">
+    <div class="form-row">
+        <label for="node-input-textId"><i class="icon-tasks"></i> Id</label>
+        <input type="text" id="node-input-textId" placeholder="Text Id">
+    </div>
+    <div class="form-row">
+        <label for="node-input-sendto"><i class="icon-random"></i> Send to</label>
+        <select id="node-input-sendto">
+            <option value="all">all connected</option>
+            <option value="sender">only sender</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="text">
+    <p>A ui text output node. Updates the text on UI with the parameters from <b>msg.payload</b>.
+</script>

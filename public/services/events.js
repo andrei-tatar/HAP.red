@@ -5,7 +5,7 @@ function WebEvents($timeout) {
   var socket = io();
   var handlers = {};
   
-  socket.on('msg', function (msg) {
+  socket.on('ui', function (msg) {
     var eventHandlers = handlers[msg.event];
     if (!eventHandlers) return;
     
@@ -17,7 +17,7 @@ function WebEvents($timeout) {
   });
   
   this.emit = function (event, data) {
-    socket.emit('msg', {event: event, data: data});
+    socket.emit('ui', {event: event, data: data});
   };
   
   this.on = function (event, handler) {

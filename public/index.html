@@ -35,7 +35,7 @@
                     ng-repeat="group in main.selectedTab.groups">
                 <md-card-content>
                     <h2 class="md-title">{{group.header}}</h2>
-                    <hap-controls items="group.items"/>
+                    <hap-control ng-repeat="control in group.items" item="control"/>
                 </md-card-content>
             </md-card>
         </md-content>

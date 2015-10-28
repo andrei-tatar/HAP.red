@@ -1,0 +1,33 @@
+<script type="text/javascript">
+    RED.nodes.registerType('button',{
+        category: 'ui',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value: ''},
+            buttonId: {value: ''}
+        },
+        inputs:0,
+        outputs:1,
+        icon: "ui.png",
+        label: function() {
+            return this.name || ((this.buttonId ? this.buttonId : 'any') + ' button click');
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="button">
+    <div class="form-row">
+        <label for="node-input-buttonId"><i class="icon-tasks"></i> Id</label>
+        <input type="text" id="node-input-buttonId" placeholder="Button Id">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="button">
+    <p>A button input node. Listens for button clicks from a button specified by <b>Button Id</b>.
+     If no button id is specified, any button click will trigger a message.
+    The button id is forwarded in <b>msg.payload</b></p>.
+</script>

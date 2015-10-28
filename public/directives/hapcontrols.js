@@ -1,21 +1,4 @@
-angular.module('hap').directive('hapControls', HapControls);
 angular.module('hap').directive('hapControl', HapControl);
-
-function HapControls() {
-    return {
-        restrict: 'E',
-        templateUrl: 'templates/controls.html',
-        bindToController: {
-            items: '='
-        },
-        controller: ControlsController,
-        controllerAs: "me",
-        scope: true
-    };
-}
-
-function ControlsController() {
-}
 
 HapControl.$inject = ['$http', '$compile'];
 function HapControl($http, $compile) {
@@ -37,12 +20,15 @@ function HapControl($http, $compile) {
                 element.html(resp.data);
                 $compile(element.contents())(scope);
             });
+
+            ctrl.init();
         }
     };
 }
 
 ControlController.$inject = ['WebEvents'];
 function ControlController(events) {
+
     this.buttonClick = function() {
         events.emit('button-click', {
             id: this.item.id
@@ -55,4 +41,20 @@ function ControlController(events) {
             state: this.item.state
         });
     };
+
+    this.init = function() {
+        this.formatted = this.item.value;
+
+        events.on('text-update', function (data) {
+            if (this.item.id == data.id) {
+                this.formatted = formatText(this.item.value, data.payload);
+            }
+        }.bind(this));
+    };
+
+    function formatText(text, valueSource) {
+        return text.replace(/{([\w\s]+)}/gi, function (match, captured) {
+            return valueSource[captured];
+        });
+    }
 }

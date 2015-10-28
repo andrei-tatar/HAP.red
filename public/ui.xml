@@ -7,7 +7,7 @@
 			</row>
 		</group>
 		<group header="Music">
-			<text id="song_name">Song name: </text>
+			<text id="mpd info">Song name: {song}</text>
 			<row alignment="space-around">
 				<button-icon id="prev" icon="skip_previous"/>
 				<button-icon id="play" icon="play_arrow"/>
