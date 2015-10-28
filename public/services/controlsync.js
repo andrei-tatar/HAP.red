@@ -16,6 +16,13 @@ function ControlSync(events) {
         });
     });
 
+    events.on('switch-changed', function (data) {
+        var controls = findControls(data.id, 'switch');
+        controls.forEach(function (ctrl) {
+            ctrl.state = data.state;
+        });
+    });
+
     function findControls(id, type) {
         var key = id + '-' + type;
         var cached = cachedSearches[key];
@@ -44,7 +51,8 @@ function ControlSync(events) {
     }
 
     function formatText(text, valueSource) {
-        return text.replace(/{([\w\s]+)}/gi, function (match, captured) {
+        return text.replace(/\{payload(?:.([\w\s]+))?}/gi, function (match, captured) {
+            if (captured == '') return valueSource;
             return valueSource[captured];
         });
     }

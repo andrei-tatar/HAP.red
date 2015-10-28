@@ -76,6 +76,10 @@ module.exports = function(RED) {
         }
     };
 
+    instance.on('switch-changed', function (data) {
+        instance.emit('switch-changed', data);
+    });
+
     RED.server.hapEvents = instance;
     return instance;
 };
