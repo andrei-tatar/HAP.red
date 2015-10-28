@@ -22,8 +22,13 @@ function WebEvents($timeout) {
   
   this.on = function (event, handler) {
     var eventHandlers = handlers[event];
-    if (!eventHandlers)
-      handlers[event] = eventHandlers = [];
+    if (!eventHandlers) handlers[event] = eventHandlers = [];
     eventHandlers.push(handler);
+
+    return function() {
+      var index = eventHandlers.indexOf(handler);
+      if (index < 0) return;
+      eventHandlers.splice(index, 1);
+    }
   };
 }

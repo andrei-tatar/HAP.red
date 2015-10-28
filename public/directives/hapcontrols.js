@@ -43,18 +43,7 @@ function ControlController(events) {
     };
 
     this.init = function() {
-        this.formatted = this.item.value;
-
-        events.on('text-update', function (data) {
-            if (this.item.id == data.id) {
-                this.formatted = formatText(this.item.value, data.payload);
-            }
-        }.bind(this));
+        if (!this.item.formatted)
+            this.item.formatted = this.item.value;
     };
-
-    function formatText(text, valueSource) {
-        return text.replace(/{([\w\s]+)}/gi, function (match, captured) {
-            return valueSource[captured];
-        });
-    }
 }

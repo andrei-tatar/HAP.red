@@ -6,8 +6,12 @@ module.exports = function(RED) {
 
     var io = socketio(RED.server);
     var handlers = {};
+    var state = {};
 
     io.on('connection', function(socket) {
+
+        replayStateEvents(socket);
+
         socket.on('ui', function (msg) {
             var eventHandlers = handlers[msg.event];
             if (!eventHandlers) return;
@@ -19,6 +23,25 @@ module.exports = function(RED) {
         socket.on('disconnect', function(){
         });
     });
+
+    function replayStateEvents(socket) {
+        var events = Object.getOwnPropertyNames(state);
+        var count = 0;
+        events.forEach(function (event) {
+            var eventStates = state[event];
+            var ids = Object.getOwnPropertyNames(eventStates);
+
+            ids.forEach(function (id) {
+                socket.emit('ui', {
+                    event: event,
+                    data: eventStates[id]
+                });
+                count ++;
+            });
+        });
+
+        //console.log("Replayed " + count + " events");
+    }
 
     var instance = {
         on: function (event, handler) {
@@ -39,6 +62,11 @@ module.exports = function(RED) {
                 if (!socket)
                     throw new Error("trying to send message to a missing or closed socket");
                 to = socket;
+            } else {
+                var eventState = state[event];
+                if (!eventState) state[event] = eventState = {};
+
+                eventState[data.id] = data;
             }
 
             to.emit('ui', {
