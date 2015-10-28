@@ -80,6 +80,10 @@ module.exports = function(RED) {
         instance.emit('switch-changed', data);
     });
 
+    instance.on('slider-changed', function (data) {
+        instance.emit('slider-changed', data);
+    });
+
     RED.server.hapEvents = instance;
     return instance;
 };

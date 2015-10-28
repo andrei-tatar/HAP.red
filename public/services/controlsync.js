@@ -23,6 +23,13 @@ function ControlSync(events) {
         });
     });
 
+    events.on('slider-changed', function (data) {
+        var controls = findControls(data.id, 'slider');
+        controls.forEach(function (ctrl) {
+            ctrl.value = data.value;
+        });
+    });
+
     function findControls(id, type) {
         var key = id + '-' + type;
         var cached = cachedSearches[key];

@@ -46,4 +46,11 @@ function ControlController(events) {
         if (!this.item.formatted)
             this.item.formatted = this.item.value;
     };
+
+    this.sliderChanged = function() {
+        events.emit('slider-changed', {
+            id: this.item.id,
+            value: this.item.value
+        });
+    };
 }

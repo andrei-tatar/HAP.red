@@ -74,6 +74,11 @@ function UiLoader($http) {
             case 'button':
                 control.value = xmlroot.innerHTML;
                 break;
+            case 'slider':
+                control.min = control.min || 0;
+                control.max = control.max || 100;
+                control.value = control.value || control.min;
+                break;
         }
 
         return control;
