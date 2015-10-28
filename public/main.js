@@ -8,7 +8,7 @@ function MainController($mdSidenav, $window, $http, events) {
 
   this.tabs = [];
   this.selectedTab = null;
-  this.title = "My Home";
+  this.title = '';
 
   this.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
@@ -48,19 +48,15 @@ function MainController($mdSidenav, $window, $http, events) {
     return result;
   }
 
-  function getGroup(xmlroot) {
-    return {
-      header: xmlroot.getAttribute('header') || 'Unnamed',
-      items: getXmlObjects(xmlroot, getControl)
-    }
-  }
-
   function getTab(xmlroot) {
     return {
       header: xmlroot.getAttribute('header') || 'Unnamed',
       groups: getXmlObjects(xmlroot, function (c) {
         if (c.tagName != 'group') return;
-        return getGroup(c);
+        return {
+          header: c.getAttribute('header') || 'Unnamed',
+          items: getXmlObjects(c, getControl)
+        };
       })
     };
   }

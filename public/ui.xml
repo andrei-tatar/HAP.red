@@ -1,0 +1,24 @@
+<ui title="HAP.red">
+	<tab header="Home">
+		<group header="Living">
+			<row alignment="space-between">
+				<text>Light</text>
+				<switch id="light"/>
+			</row>
+		</group>
+		<group header="Music">
+			<text id="song_name">Song name: </text>
+			<row alignment="space-around">
+				<button-icon id="prev" icon="skip_previous"/>
+				<button-icon id="play" icon="play_arrow"/>
+				<button-icon id="stop" icon="stop"/>
+				<button-icon id="next" icon="skip_next"/>
+			</row>
+		</group>
+	</tab>
+	<tab header="Test">
+		<group header="Some Test Group">
+			<button id="s1">Hello</button>
+		</group>
+	</tab>
+</ui>

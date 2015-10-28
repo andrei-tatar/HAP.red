@@ -44,6 +44,15 @@ function HapControl($http, $compile) {
 ControlController.$inject = ['WebEvents'];
 function ControlController(events) {
     this.buttonClick = function() {
-        events.emit('button-click', this.item.id);
-    }
+        events.emit('button-click', {
+            id: this.item.id
+        });
+    };
+
+    this.switchChanged = function() {
+        events.emit('switch-changed', {
+            id: this.item.id,
+            state: this.item.state
+        });
+    };
 }
