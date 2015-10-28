@@ -18,7 +18,11 @@
 	</tab>
 	<tab header="Test">
 		<group header="Some Test Group">
-			<button id="s1">Hello</button>
+			<button id="test">Hello</button>
+			<row alignment="space-between">
+				<text>Test</text>
+				<switch/>
+			</row>
 		</group>
 	</tab>
 </ui>

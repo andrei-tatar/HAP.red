@@ -20,6 +20,11 @@ function UiLoader($http) {
         });
     };
 
+    var getId = function() {
+        this.id++;
+        return "____id" + this.id;
+    }.bind({id: 0});
+
     function getXmlObjects(xmlroot, transform) {
         var result = [];
         for (var i=0; i<xmlroot.children.length; i++) {
@@ -50,6 +55,9 @@ function UiLoader($http) {
             var attr = xmlroot.attributes[i];
             control[attr.name] = attr.value;
         }
+
+        if (!control.id)
+            control.id = getId();
 
         switch (control.type) {
             case 'row':
