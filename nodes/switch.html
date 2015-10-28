@@ -1,0 +1,39 @@
+<script type="text/javascript">
+    RED.nodes.registerType('switch',{
+        category: 'ui',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value: ''},
+            switchId: {value: '', required: true},
+            sendto: {value: "all", required: true}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "ui.png",
+        label: function() {
+            return this.name || (this.switchId + " switch");
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="switch">
+    <div class="form-row">
+        <label for="node-input-switchId"><i class="icon-tasks"></i> Id</label>
+        <input type="text" id="node-input-switchId" placeholder="Switch Id">
+    </div>
+    <div class="form-row">
+        <label for="node-input-sendto"><i class="icon-random"></i> Send to</label>
+        <select id="node-input-sendto">
+            <option value="all">all connected</option>
+            <option value="sender">only sender</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="switch">
+    <p>TODO</p>
+</script>
