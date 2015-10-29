@@ -38,6 +38,7 @@ function UiLoader($http) {
     function getTab(xmlroot) {
         return {
             header: xmlroot.getAttribute('header') || 'Unnamed',
+            icon: xmlroot.getAttribute('icon') || 'dashboard',
             groups: getXmlObjects(xmlroot, function (c) {
                 if (c.tagName != 'group') return;
                 return {

@@ -1,5 +1,11 @@
 var app = angular.module('hap', ['ngMaterial', 'ngMdIcons']);
 
+app.config(function($mdThemingProvider) {
+    $mdThemingProvider.theme('default')
+        .primaryPalette('light-green')
+        .accentPalette('red');
+});
+
 app.controller('MainController', MainController);
 
 MainController.$inject = ['$mdSidenav', '$window', 'UiLoader', 'ControlSync', 'WebEvents', '$mdToast'];
@@ -11,16 +17,18 @@ function MainController($mdSidenav, $window, loader, controlSync, events, $mdToa
     this.selectedTab = null;
     this.title = '';
 
-    this.toggleSidenav = function(menuId) {
-        $mdSidenav(menuId).toggle();
+    this.toggleSidenav = function() {
+        $mdSidenav('left').toggle();
     };
 
     this.select = function(tab) {
         main.selectedTab = tab;
+        $mdSidenav('left').close()
     };
 
     this.openEditor = function() {
         $window.open('/red', '_blank');
+        $mdSidenav('left').close()
     };
 
     loader.load().then(function(result) {

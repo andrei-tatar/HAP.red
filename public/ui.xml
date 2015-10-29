@@ -1,5 +1,5 @@
 <ui title="HAP.red">
-	<tab header="Demo">
+	<tab header="Demo" icon="home">
 		<group header="Demo">
 			<row alignment="space-between">
 				<text>Test switch</text>
