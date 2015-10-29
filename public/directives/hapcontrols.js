@@ -22,8 +22,9 @@ function HapControl($http, $compile) {
             }
 
             template.then(function (html) {
-                var newElement = $compile(html)(scope);
-                element.replaceWith(newElement);
+                var control = angular.element(html);
+                if (ctrl.item.width) control.attr('flex', ctrl.item.width);
+                element.replaceWith($compile(control)(scope));
             });
 
             ctrl.init();
