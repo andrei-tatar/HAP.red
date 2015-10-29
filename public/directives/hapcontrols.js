@@ -14,11 +14,16 @@ function HapControl($http, $compile) {
         scope: true,
         link: function (scope, element, attributes, ctrl) {
             var template = templateCache[ctrl.item.type];
-            if (!template) templateCache[ctrl.item.type] = template = $http.get('/templates/controls/' + ctrl.item.type +'.html');
+            if (!template) {
+                template =
+                    $http.get('/templates/controls/' + ctrl.item.type +'.html')
+                        .then(function(resp) {return resp.data;});
+                templateCache[ctrl.item.type] = template;
+            }
 
-            template.then(function (resp) {
-                element.html(resp.data);
-                $compile(element.contents())(scope);
+            template.then(function (html) {
+                var newElement = $compile(html)(scope);
+                element.replaceWith(newElement);
             });
 
             ctrl.init();
