@@ -30,14 +30,16 @@
             </md-list>
         </md-sidenav>
 
-        <md-content layout="row" flex layout-align="start top" layout-wrap>
-            <md-card flex-sm='95' flex-md='45' flex-lg='30', flex-gt-lg='30'
-                    ng-repeat="group in main.selectedTab.groups">
-                <md-card-content>
-                    <h2 class="md-title">{{group.header}}</h2>
-                    <hap-control ng-repeat="control in group.items" item="control"/>
-                </md-card-content>
-            </md-card>
+        <md-content layout="column" flex>
+            <md-content layout="row" layout-align="start start" layout-wrap>
+                <md-card ng-repeat="group in main.selectedTab.groups"
+                         flex style="min-width: 280px; max-width: 400px">
+                    <md-card-content>
+                        <h2 class="md-title">{{group.header}}</h2>
+                        <hap-control ng-repeat="control in group.items" item="control"/>
+                    </md-card-content>
+                </md-card>
+            </md-content>
         </md-content>
     </div>
 	
