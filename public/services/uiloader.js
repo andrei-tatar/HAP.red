@@ -42,7 +42,7 @@ function UiLoader($http) {
             groups: getXmlObjects(xmlroot, function (c) {
                 if (c.tagName != 'group') return;
                 return {
-                    header: c.getAttribute('header') || 'Unnamed',
+                    header: c.getAttribute('header') || '',
                     items: getXmlObjects(c, getControl)
                 };
             })
