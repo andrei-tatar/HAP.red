@@ -62,7 +62,7 @@ function UiLoader($http) {
 
         switch (control.type) {
             case 'row':
-                control.alignment = control.alignment || start;
+                control.alignment = control.alignment || 'start';
                 control.items =  getXmlObjects(xmlroot, getControl);
                 break;
             case 'text':
