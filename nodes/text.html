@@ -4,7 +4,7 @@
         color: '#a6bbcf',
         defaults: {
             name: {value: ''},
-            textId: {value: '', required: true},
+            controlId: {value: '', required: true},
             sendto: {value: "all", required: true}
         },
         inputs:1,
@@ -12,15 +12,15 @@
         align: "right",
         icon: "ui.png",
         label: function() {
-            return this.name || ("update text " + this.textId);
+            return this.name || ("update text " + this.controlId);
         }
     });
 </script>
 
 <script type="text/x-red" data-template-name="text">
     <div class="form-row">
-        <label for="node-input-textId"><i class="icon-tasks"></i> Id</label>
-        <input type="text" id="node-input-textId" placeholder="Text Id">
+        <label for="node-input-controlId"><i class="icon-tasks"></i> Id</label>
+        <input type="text" id="node-input-controlId" placeholder="Text Id">
     </div>
     <div class="form-row">
         <label for="node-input-sendto"><i class="icon-random"></i> Send to</label>

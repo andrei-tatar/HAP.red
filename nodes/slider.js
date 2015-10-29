@@ -3,20 +3,20 @@ var hap = require('./hap');
 module.exports = function(RED) {
     var events = hap(RED);
 
-    function SwitchNode(config) {
+    function SliderNode(config) {
         RED.nodes.createNode(this, config);
         var node = this;
 
         this.on('input', function(msg) {
-            events.emit('switch-changed', {
+            events.emit('slider-changed', {
                 id: config.controlId,
-                state: msg.payload
+                value: msg.payload
             });
         });
 
-        var dispose = events.on('switch-changed', function (msg) {
+        var dispose = events.on('slider-changed', function (msg) {
             if (msg.id === config.controlId)
-                node.send({payload: msg.state});
+                node.send({payload: msg.value});
         });
 
         node.on("close", function (done) {
@@ -25,5 +25,5 @@ module.exports = function(RED) {
         });
     }
 
-    RED.nodes.registerType("switch", SwitchNode);
+    RED.nodes.registerType("slider", SliderNode);
 };

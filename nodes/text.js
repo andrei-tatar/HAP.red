@@ -8,7 +8,7 @@ module.exports = function(RED) {
 
         this.on('input', function(msg) {
             events.emit('text-update', {
-                id: config.textId,
+                id: config.controlId,
                 payload: msg.payload
             }, config.sendto === 'sender' ? msg.socketio_id : undefined);
         });

@@ -7,10 +7,9 @@ module.exports = function(RED) {
         RED.nodes.createNode(this, config);
 
         var node = this;
-        var buttonId = config.buttonId;
 
         var dispose = events.on('button-click', function (msg, socket) {
-            if (msg.id === buttonId || buttonId === '')
+            if (msg.id === config.controlId || config.controlId === '')
                 node.send({payload: msg.id, socketio_id: socket.id});
         });
 
