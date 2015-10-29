@@ -10,7 +10,7 @@ module.exports = function(RED) {
 
         var dispose = events.on('button-click', function (msg, socket) {
             if (msg.id === config.controlId || config.controlId === '')
-                node.send({payload: msg.id, socketio_id: socket.id});
+                node.send({payload: msg.id, socketId: socket.id});
         });
 
         node.on("close", function (done) {

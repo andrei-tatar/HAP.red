@@ -7,6 +7,7 @@ module.exports = function(RED) {
     var io = socketio(RED.server);
     var handlers = {};
     var state = {};
+    var ignoreStateEvents = ['show-toast'];
 
     io.on('connection', function(socket) {
 
@@ -62,7 +63,7 @@ module.exports = function(RED) {
                 if (!socket)
                     throw new Error("trying to send message to a missing or closed socket");
                 to = socket;
-            } else {
+            } else if (ignoreStateEvents.indexOf(event) === -1) {
                 var eventState = state[event];
                 if (!eventState) state[event] = eventState = {};
 

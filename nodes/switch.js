@@ -14,9 +14,9 @@ module.exports = function(RED) {
             });
         });
 
-        var dispose = events.on('switch-changed', function (msg) {
+        var dispose = events.on('switch-changed', function (msg, socket) {
             if (msg.id === config.controlId)
-                node.send({payload: msg.state});
+                node.send({payload: msg.state, socketId: socket.id});
         });
 
         node.on("close", function (done) {

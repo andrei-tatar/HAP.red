@@ -59,7 +59,7 @@ function ControlSync(events) {
 
     function formatText(text, valueSource) {
         return text.replace(/\{payload(?:.([\w\s]+))?}/gi, function (match, captured) {
-            if (captured == '') return valueSource;
+            if (!captured || !captured.length) return valueSource;
             return valueSource[captured];
         });
     }

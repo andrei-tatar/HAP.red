@@ -1,29 +1,25 @@
 <ui title="HAP.red">
-	<tab header="Home">
-		<group header="Living">
+	<tab header="Demo">
+		<group header="Demo">
 			<row alignment="space-between">
-				<text>Light</text>
-				<switch id="light"/>
+				<text>Test switch</text>
+				<switch id="some "/>
 			</row>
 		</group>
-		<group header="Music">
-			<text id="mpd info">Song name: {payload.song}</text>
+		<group header="Icon buttons">
+			<text id="info">You clicked: {payload}</text>
 			<row alignment="space-around">
 				<button-icon id="prev" icon="skip_previous"/>
 				<button-icon id="play" icon="play_arrow"/>
 				<button-icon id="stop" icon="stop"/>
 				<button-icon id="next" icon="skip_next"/>
 			</row>
+			<slider min="0" max="10" id="slider1"/>
 		</group>
 	</tab>
-	<tab header="Test">
-		<group header="Some Test Group">
-			<button id="test">Hello</button>
-			<row alignment="space-between">
-				<text>Test</text>
-				<switch/>
-			</row>
-			<slider min="0" max="1"/>
+	<tab header="Click me">
+		<group header="Some Group">
+			<text>You can have multiple tabs! :)</text>
 		</group>
 	</tab>
 </ui>
