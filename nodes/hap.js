@@ -8,9 +8,9 @@ module.exports = function(RED) {
     var handlers = {};
     var state = {};
     var ignoreStateEvents = ['show-toast'];
+    var forwardEvents = ['switch-changed', 'slider-changed'];
 
     io.on('connection', function(socket) {
-
         replayStateEvents(socket);
 
         socket.on('ui', function (msg) {
@@ -19,6 +19,9 @@ module.exports = function(RED) {
             eventHandlers.forEach(function(handler) {
                 handler(msg.data, socket);
             });
+
+            if (forwardEvents.indexOf(msg.event) != -1)
+                io.emit('ui', msg);
         });
 
         socket.on('disconnect', function(){
@@ -41,7 +44,7 @@ module.exports = function(RED) {
             });
         });
 
-        //console.log("Replayed " + count + " events");
+        socket.emit('ui', {event: 'replay-done'});
     }
 
     var instance = {
@@ -76,14 +79,6 @@ module.exports = function(RED) {
             });
         }
     };
-
-    instance.on('switch-changed', function (data) {
-        instance.emit('switch-changed', data);
-    });
-
-    instance.on('slider-changed', function (data) {
-        instance.emit('slider-changed', data);
-    });
 
     RED.server.hapEvents = instance;
     return instance;

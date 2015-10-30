@@ -8,13 +8,12 @@ app.config(function($mdThemingProvider) {
 
 app.controller('MainController', MainController);
 
-MainController.$inject = ['$mdSidenav', '$window', 'UiLoader', 'ControlSync', 'WebEvents', '$mdToast', '$location'];
-function MainController($mdSidenav, $window, loader, controlSync, events, $mdToast, $location) {
+MainController.$inject = ['$mdSidenav', '$window', 'UiLoader', 'ControlSync', 'WebEvents', '$mdToast', '$location', '$document'];
+function MainController($mdSidenav, $window, loader, controlSync, events, $mdToast, $location, $document) {
     var main = this;
 
     this.tabs = [];
     this.selectedTab = null;
-    this.title = '';
     this.loaded = false;
 
     this.toggleSidenav = function() {
@@ -34,7 +33,7 @@ function MainController($mdSidenav, $window, loader, controlSync, events, $mdToa
 
     loader.load().then(function(result) {
         main.tabs = result.tabs;
-        main.title = result.title;
+        $document[0].title = result.title;
 
         var prevTabIndex = parseInt($location.path().substr(1));
         if (!isNaN(prevTabIndex) && prevTabIndex < main.tabs.length)
@@ -54,6 +53,8 @@ function MainController($mdSidenav, $window, loader, controlSync, events, $mdToa
             $mdToast.show(toast);
         });
 
-        main.loaded = true;
+        events.on('replay-done', function() {
+            main.loaded = true;
+        });
     });
 }
