@@ -23,12 +23,12 @@ function MainController($mdSidenav, $window, loader, controlSync, events, $mdToa
 
     this.select = function(tab) {
         main.selectedTab = tab;
-        $mdSidenav('left').close()
+        $mdSidenav('left').close();
     };
 
     this.openEditor = function() {
         $window.open('/red', '_blank');
-        $mdSidenav('left').close()
+        $mdSidenav('left').close();
     };
 
     loader.load().then(function(result) {
@@ -39,12 +39,12 @@ function MainController($mdSidenav, $window, loader, controlSync, events, $mdToa
 
         events.connect();
         events.on('show-toast', function (msg) {
-            $mdToast.show(
-                $mdToast.simple()
-                    .content(msg.message)
-                    .position('top right')
-                    .hideDelay(3000)
-            );
+            var toast = $mdToast.simple()
+                .content(msg.message)
+                .position('top right')
+                .hideDelay(3000);
+
+            $mdToast.show(toast);
         });
 
         main.loaded = true;
