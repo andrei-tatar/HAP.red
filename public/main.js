@@ -8,8 +8,8 @@ app.config(function($mdThemingProvider) {
 
 app.controller('MainController', MainController);
 
-MainController.$inject = ['$mdSidenav', '$window', 'UiLoader', 'ControlSync', 'WebEvents', '$mdToast'];
-function MainController($mdSidenav, $window, loader, controlSync, events, $mdToast) {
+MainController.$inject = ['$mdSidenav', '$window', 'UiLoader', 'ControlSync', 'WebEvents', '$mdToast', '$location'];
+function MainController($mdSidenav, $window, loader, controlSync, events, $mdToast, $location) {
     var main = this;
 
     this.tabs = [];
@@ -21,9 +21,10 @@ function MainController($mdSidenav, $window, loader, controlSync, events, $mdToa
         $mdSidenav('left').toggle();
     };
 
-    this.select = function(tab) {
-        main.selectedTab = tab;
+    this.select = function(index) {
+        main.selectedTab = main.tabs[index];
         $mdSidenav('left').close();
+        $location.path(index);
     };
 
     this.openEditor = function() {
@@ -34,7 +35,13 @@ function MainController($mdSidenav, $window, loader, controlSync, events, $mdToa
     loader.load().then(function(result) {
         main.tabs = result.tabs;
         main.title = result.title;
-        main.select(main.tabs[0]);
+
+        var prevTabIndex = parseInt($location.path().substr(1));
+        if (!isNaN(prevTabIndex) && prevTabIndex < main.tabs.length)
+            main.selectedTab = main.tabs[prevTabIndex];
+        else
+            main.select(0);
+
         controlSync.sync(main.tabs);
 
         events.connect();
