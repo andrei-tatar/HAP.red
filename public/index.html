@@ -37,7 +37,7 @@
     <md-content layout="column" flex>
         <md-content layout="row" layout-align="start start" layout-wrap>
             <md-card ng-repeat="group in main.selectedTab.groups"
-                     flex style="min-width: 280px; max-width: 400px">
+                     flex style="min-width: 280px; max-width: 400px;align-self: stretch">
                 <md-card-content>
                     <h2 ng-show="group.header" class="md-title">{{group.header}}</h2>
                     <hap-control ng-repeat="control in group.items" item="control"></hap-control>
