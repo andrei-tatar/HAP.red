@@ -1,0 +1,19 @@
+<tab header="Demo" icon="home">
+    <group header="Demo">
+        <row alignment="space-between">
+            <text>You clicked</text>
+            <text id="info">{payload}</text>
+        </row>
+        <divider/>
+        <row alignment="space-between">
+            <text>Test switch</text>
+            <switch id="test"/>
+        </row>
+        <divider/>
+        <row alignment="space-between">
+            <text>You clicked</text>
+            <text id="info">{payload}</text>
+        </row>
+    </group>
+    <group url="group_music.xml"/>
+</tab>

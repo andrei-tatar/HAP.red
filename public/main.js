@@ -10,12 +10,12 @@ app.controller('MainController', MainController);
 
 MainController.$inject = ['$mdSidenav', '$window', 'UiLoader', 'ControlSync', 'WebEvents', '$mdToast'];
 function MainController($mdSidenav, $window, loader, controlSync, events, $mdToast) {
-
     var main = this;
 
     this.tabs = [];
     this.selectedTab = null;
     this.title = '';
+    this.loaded = false;
 
     this.toggleSidenav = function() {
         $mdSidenav('left').toggle();
@@ -36,14 +36,17 @@ function MainController($mdSidenav, $window, loader, controlSync, events, $mdToa
         main.title = result.title;
         main.select(main.tabs[0]);
         controlSync.sync(main.tabs);
-    });
 
-    events.on('show-toast', function (msg) {
-        $mdToast.show(
-            $mdToast.simple()
-                .content(msg.message)
-                .position('top right')
-                .hideDelay(3000)
-        );
+        events.connect();
+        events.on('show-toast', function (msg) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .content(msg.message)
+                    .position('top right')
+                    .hideDelay(3000)
+            );
+        });
+
+        main.loaded = true;
     });
 }

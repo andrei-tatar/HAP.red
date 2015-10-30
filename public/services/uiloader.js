@@ -1,22 +1,18 @@
 angular.module('hap').service('UiLoader', UiLoader);
 
-UiLoader.$inject = ['$http'];
-function UiLoader($http) {
+UiLoader.$inject = ['$http', '$q'];
+function UiLoader($http, $q) {
     this.load = function() {
-        return $http.get('/ui.xml').then(function (resp) {
-            var parser = new DOMParser();
-            var xml = parser.parseFromString(resp.data, "text/xml");
-            if (xml.children.length != 1 || xml.children[0].tagName != 'ui')
+        return loadXmlFirstChild('root.xml').then(function (ui) {
+            if (!ui || ui.tagName != 'ui')
                 throw new Error("Only one <ui> root node must exist");
 
-            var ui = xml.children[0];
-            return {
-                title: ui.getAttribute('title') || 'Title',
-                tabs: getXmlObjects(ui, function (c) {
-                    if (c.tagName != 'tab') return;
-                    return getTab(c);
-                })
-            };
+            return getXmlObjects(ui, getTab).then(function (tabs) {
+                return {
+                    title: ui.getAttribute('title') || 'Title',
+                    tabs: tabs
+                };
+            });
         });
     };
 
@@ -25,28 +21,56 @@ function UiLoader($http) {
         return "____id" + this.id;
     }.bind({id: 0});
 
+    function loadXmlFirstChild(url) {
+        return $http.get('/ui/'+ url).then(function (resp) {
+            var parser = new DOMParser();
+            var xml = parser.parseFromString(resp.data, "text/xml");
+            return xml.firstChild;
+        });
+    }
+
     function getXmlObjects(xmlroot, transform) {
-        var result = [];
+        var promises = [];
         for (var i=0; i<xmlroot.children.length; i++) {
             var child = xmlroot.children[i];
             var transformed = transform(child);
-            if (transformed) result.push(transformed);
+            if (transformed)
+                promises.push(transformed);
         }
-        return result;
+        return $q.all(promises);
     }
 
     function getTab(xmlroot) {
-        return {
-            header: xmlroot.getAttribute('header') || 'Unnamed',
-            icon: xmlroot.getAttribute('icon') || 'dashboard',
-            groups: getXmlObjects(xmlroot, function (c) {
-                if (c.tagName != 'group') return;
-                return {
-                    header: c.getAttribute('header') || '',
-                    items: getXmlObjects(c, getControl)
-                };
-            })
-        };
+        if (xmlroot.tagName != 'tab')
+            throw new Error("Expected tab tag");
+
+        var url = xmlroot.getAttribute('url');
+        if (url)
+            return loadXmlFirstChild(url).then(getTab);
+
+        return getXmlObjects(xmlroot, getGroup).then(function (groups) {
+            return {
+                header: xmlroot.getAttribute('header') || 'Unnamed',
+                icon: xmlroot.getAttribute('icon') || 'dashboard',
+                groups: groups
+            };
+        });
+    }
+
+    function getGroup(xmlroot) {
+        if (xmlroot.tagName != 'group')
+            throw new Error("Expected group tag");
+
+        var url = xmlroot.getAttribute('url');
+        if (url)
+            return loadXmlFirstChild(url).then(getGroup);
+
+        return getXmlObjects(xmlroot, getControl).then(function (controls) {
+            return {
+                header: xmlroot.getAttribute('header') || '',
+                items: controls
+            };
+        });
     }
 
     function getControl(xmlroot) {
@@ -63,7 +87,10 @@ function UiLoader($http) {
         switch (control.type) {
             case 'row':
                 control.alignment = control.alignment || 'start';
-                control.items =  getXmlObjects(xmlroot, getControl);
+                return getXmlObjects(xmlroot, getControl).then(function (items) {
+                    control.items = items;
+                    return control;
+                });
                 break;
             case 'text':
                 control.value = xmlroot.innerHTML;

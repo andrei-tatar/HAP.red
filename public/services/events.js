@@ -2,22 +2,25 @@ angular.module('hap').service('WebEvents', WebEvents);
 
 WebEvents.$inject = ['$timeout'];
 function WebEvents($timeout) {
-    var socket = io();
     var handlers = {};
+    this.socket = {emit:function(){}};
 
-    socket.on('ui', function (msg) {
-        var eventHandlers = handlers[msg.event];
-        if (!eventHandlers) return;
+    this.connect = function() {
+        this.socket = io();
+        this.socket.on('ui', function (msg) {
+            var eventHandlers = handlers[msg.event];
+            if (!eventHandlers) return;
 
-        $timeout(function() {
-            eventHandlers.forEach(function (handler) {
-                handler(msg.data);
-            });
-        }, 0);
-    });
+            $timeout(function() {
+                eventHandlers.forEach(function (handler) {
+                    handler(msg.data);
+                });
+            }, 0);
+        });
+    };
 
     this.emit = function (event, data) {
-        socket.emit('ui', {event: event, data: data});
+        this.socket.emit('ui', {event: event, data: data});
     };
 
     this.on = function (event, handler) {

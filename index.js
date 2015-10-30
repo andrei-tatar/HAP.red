@@ -7,6 +7,7 @@ var app = express();
 
 app.use("/", express.static("public"));
 app.use("/", express.static("bower_components"));
+app.use("/ui", express.static("ui"));
 
 var server = http.createServer(app);
 
