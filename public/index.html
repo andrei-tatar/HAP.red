@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="angular-material-icons/angular-material-icons.css">
     <link rel="stylesheet" href="main.css">
 </head>
-<body layout="column" ng-app="hap" ng-controller="MainController as main">
+<body ng-app="hap" ng-controller="MainController as main" ng-cloak layout="column">
 
-<div ng-if="main.loaded" ng-include="'templates/cards.html'" layout="column" flex></div>
+<md-content ng-if="main.loaded" ng-include="'templates/cards.html'" layout="column" flex></md-content>
 
 <script src="socket.io/socket.io.js"></script>
 <script src="angular/angular.min.js"></script>
