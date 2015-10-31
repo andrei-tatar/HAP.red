@@ -5,5 +5,10 @@
     "port": 1883,
     "user": "user",
     "password": "password"
+  },
+  "broadcast": {
+    "serverName": "hap_server",
+    "port": 5100,
+    "interval": 5000
   }
 }
