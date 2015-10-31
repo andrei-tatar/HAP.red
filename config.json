@@ -1,0 +1,9 @@
+{
+  "port": 8000,
+  "mqtt": {
+    "enabled": true,
+    "port": 1883,
+    "user": "user",
+    "password": "password"
+  }
+}
