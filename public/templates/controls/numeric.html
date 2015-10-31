@@ -1,0 +1,9 @@
+<div layout="row" ng-init="me.item.value = 0" layout-align="center center">
+    <md-button class="md-icon-button" ng-click="me.item.value = me.item.value - 1" aria-label="unknown">
+        <ng-md-icon icon="expand_more"></ng-md-icon>
+    </md-button>
+    <h3>{{me.item.value}}</h3>
+    <md-button class="md-icon-button" ng-click="me.item.value = me.item.value + 1" aria-label="unknown">
+        <ng-md-icon icon="expand_less"></ng-md-icon>
+    </md-button>
+</div>

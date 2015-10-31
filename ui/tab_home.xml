@@ -2,7 +2,7 @@
     <group header="Demo">
         <row alignment="space-between">
             <text>You clicked</text>
-            <text id="info">{payload}</text>
+            <text id="info">{{payload}}</text>
         </row>
         <divider/>
         <row alignment="space-between">
@@ -12,7 +12,11 @@
         <divider/>
         <row alignment="space-between">
             <text>You clicked</text>
-            <text id="info">{payload}</text>
+            <text id="info">{{payload}}</text>
+        </row>
+        <row alignment="space-between">
+            <text>Level</text>
+            <numeric min="10" max="20"></numeric>
         </row>
     </group>
     <group url="group_music.xml"/>

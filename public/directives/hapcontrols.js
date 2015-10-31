@@ -26,8 +26,6 @@ function HapControl($http, $compile) {
                 if (ctrl.item.width) control.attr('flex', ctrl.item.width);
                 element.replaceWith($compile(control)(scope));
             });
-
-            ctrl.init();
         }
     };
 }
@@ -46,11 +44,6 @@ function ControlController(events) {
             id: this.item.id,
             state: this.item.state
         });
-    };
-
-    this.init = function() {
-        if (!this.item.formatted)
-            this.item.formatted = this.item.value;
     };
 
     this.sliderChanged = function() {

@@ -1,5 +1,5 @@
 <group>
-    <text id="info">You clicked: {payload}</text>
+    <text id="info">You clicked: {{payload}}</text>
     <row alignment="space-around">
         <button-icon id="prev" icon="skip_previous"/>
         <button-icon id="play" icon="play_arrow"/>
@@ -15,7 +15,7 @@
     <divider/>
     <row alignment="space-between">
         <text>You clicked</text>
-        <text id="info">{payload}</text>
+        <text id="info">{{payload}}</text>
     </row>
 
     <row alignment="space-around">

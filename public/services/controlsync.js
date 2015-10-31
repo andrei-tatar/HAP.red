@@ -12,7 +12,7 @@ function ControlSync(events) {
     events.on('text-update', function (data) {
         var controls = findControls(data.id, 'text');
         controls.forEach(function (ctrl) {
-            ctrl.formatted = formatText(ctrl.value, data.payload);
+            ctrl.payload = data.payload;
         });
     });
 
@@ -55,12 +55,5 @@ function ControlSync(events) {
                 findRecursive(item, id, type, result);
             });
         }
-    }
-
-    function formatText(text, valueSource) {
-        return text.replace(/\{payload(?:.([\w\s]+))?}/gi, function (match, captured) {
-            if (!captured || !captured.length) return valueSource;
-            return valueSource[captured];
-        });
     }
 }

@@ -1,7 +1,7 @@
 angular.module('hap').service('UiLoader', UiLoader);
 
-UiLoader.$inject = ['$http', '$q'];
-function UiLoader($http, $q) {
+UiLoader.$inject = ['$http', '$q', '$interpolate'];
+function UiLoader($http, $q, $interpolate) {
     this.load = function() {
         return loadXmlFirstChild('root.xml').then(function (ui) {
             if (!ui || ui.tagName != 'ui')
@@ -95,7 +95,8 @@ function UiLoader($http, $q) {
                 });
                 break;
             case 'text':
-                control.value = xmlroot.firstChild.nodeValue;
+                var value = xmlroot.firstChild.nodeValue;
+                control.getText = $interpolate(value).bind(null, control);
                 break;
             case 'switch':
                 break;
