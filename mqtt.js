@@ -1,5 +1,5 @@
 var mosca = require('mosca');
-var config = require('../config');
+var config = require('./config');
 
 module.exports = function(log) {
     if (!config.mqtt.enabled)

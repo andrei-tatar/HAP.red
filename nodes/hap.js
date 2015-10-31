@@ -1,11 +1,8 @@
 var socketio = require('socket.io');
-var hapmosca = require('./hap_mosca');
 
 module.exports = function(RED) {
     if (RED.server.hapEvents)
         return RED.server.hapEvents;
-
-    hapmosca(RED.log);
 
     var io = socketio(RED.server);
     var handlers = {};

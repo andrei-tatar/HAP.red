@@ -1,8 +1,9 @@
-var http = require('http');
-var express = require("express");
-var nodeRed = require("node-red");
-var path = require("path");
-var config = require("./config");
+var http = require('http'),
+    express = require("express"),
+    nodeRed = require("node-red"),
+    path = require("path"),
+    config = require("./config"),
+    mqtt = require("./mqtt");
 
 var app = express();
 
@@ -29,5 +30,6 @@ app.use(settings.httpNodeRoot, nodeRed.httpNode);
 server.listen(config.port);
 
 nodeRed.start().then(function() {
+    mqtt(nodeRed.log);
     nodeRed.log.info("Application started on port: " + config.port);
 });
