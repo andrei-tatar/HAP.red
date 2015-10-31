@@ -31,8 +31,10 @@ function UiLoader($http, $q) {
 
     function getXmlObjects(xmlroot, transform) {
         var promises = [];
-        for (var i=0; i<xmlroot.children.length; i++) {
-            var child = xmlroot.children[i];
+        for (var i=0; i<xmlroot.childNodes.length; i++) {
+            var child = xmlroot.childNodes[i];
+            if (child.nodeType !== 1) continue;
+
             var transformed = transform(child);
             if (transformed)
                 promises.push(transformed);
@@ -93,19 +95,25 @@ function UiLoader($http, $q) {
                 });
                 break;
             case 'text':
-                control.value = xmlroot.innerHTML;
+                control.value = xmlroot.firstChild.nodeValue;
                 break;
             case 'switch':
                 break;
             case 'button-icon':
                 break;
             case 'button':
-                control.value = xmlroot.innerHTML;
+                control.value = xmlroot.firstChild.nodeValue;
                 break;
             case 'slider':
                 control.min = control.min || 0;
                 control.max = control.max || 100;
                 control.value = control.value || control.min;
+                break;
+            case 'numeric':
+                control.min = control.min || 0;
+                control.max = control.max || 100;
+                control.value = control.value || control.min;
+                control.format = control.format || '{value}';
                 break;
         }
 
