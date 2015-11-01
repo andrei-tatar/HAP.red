@@ -1,0 +1,26 @@
+<script type="text/javascript">
+    RED.nodes.registerType('ir',{
+        category: 'function',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value: ''}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "ir.png",
+        label: function() {
+            return this.name || 'ir';
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="ir">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="ir">
+    <p>Ir decoder/encoder</p>
+</script>
