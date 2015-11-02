@@ -1,18 +1,18 @@
 module.exports = function(RED) {
-    var events = require('../events')(RED);
+    var events = require('../../events')(RED);
 
-    function SliderNode(config) {
+    function NumericNode(config) {
         RED.nodes.createNode(this, config);
         var node = this;
 
         this.on('input', function(msg) {
-            events.emit('slider-changed', {
+            events.emit('numeric-changed', {
                 id: config.controlId,
                 value: msg.payload
             });
         });
 
-        var dispose = events.on('slider-changed', function (msg, socket) {
+        var dispose = events.on('numeric-changed', function (msg, socket) {
             if (msg.id === config.controlId)
                 node.send({payload: msg.value, socketId: socket.id});
         });
@@ -23,5 +23,5 @@ module.exports = function(RED) {
         });
     }
 
-    RED.nodes.registerType("ui_slider", SliderNode);
+    RED.nodes.registerType("ui_numeric", NumericNode);
 };

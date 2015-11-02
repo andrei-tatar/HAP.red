@@ -1,5 +1,5 @@
 module.exports = function(RED) {
-    var events = require('../events')(RED);
+    var events = require('../../events')(RED);
 
     function ToastNode(config) {
         RED.nodes.createNode(this, config);

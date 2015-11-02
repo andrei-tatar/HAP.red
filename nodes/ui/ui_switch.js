@@ -1,20 +1,20 @@
 module.exports = function(RED) {
-    var events = require('../events')(RED);
+    var events = require('../../events')(RED);
 
-    function NumericNode(config) {
+    function SwitchNode(config) {
         RED.nodes.createNode(this, config);
         var node = this;
 
         this.on('input', function(msg) {
-            events.emit('numeric-changed', {
+            events.emit('switch-changed', {
                 id: config.controlId,
-                value: msg.payload
+                state: msg.payload
             });
         });
 
-        var dispose = events.on('numeric-changed', function (msg, socket) {
+        var dispose = events.on('switch-changed', function (msg, socket) {
             if (msg.id === config.controlId)
-                node.send({payload: msg.value, socketId: socket.id});
+                node.send({payload: msg.state, socketId: socket.id});
         });
 
         node.on("close", function (done) {
@@ -23,5 +23,5 @@ module.exports = function(RED) {
         });
     }
 
-    RED.nodes.registerType("ui_numeric", NumericNode);
+    RED.nodes.registerType("ui_switch", SwitchNode);
 };
