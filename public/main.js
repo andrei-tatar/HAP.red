@@ -56,5 +56,7 @@ function MainController($mdSidenav, $window, loader, controlSync, events, $mdToa
         events.on('replay-done', function() {
             main.loaded = true;
         });
+    }).catch(function() {
+        main.loaded = true;
     });
 }

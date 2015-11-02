@@ -1,4 +1,0 @@
-<ui title="HAP.red">
-	<tab url="tab_home.xml"/>
-	<tab url="tab_status.xml"/>
-</ui>
