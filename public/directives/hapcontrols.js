@@ -52,4 +52,24 @@ function ControlController(events) {
             value: this.item.value
         });
     };
+
+    this.valueDown = function() {
+        if (this.item.value > this.item.min) {
+            this.item.value --;
+            events.emit('numeric-changed', {
+                id: this.item.id,
+                value: this.item.value
+            });
+        }
+    };
+
+    this.valueUp = function() {
+        if (this.item.value < this.item.max) {
+            this.item.value++;
+            events.emit('numeric-changed', {
+                id: this.item.id,
+                value: this.item.value
+            });
+        }
+    };
 }

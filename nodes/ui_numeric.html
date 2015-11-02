@@ -1,0 +1,33 @@
+<script type="text/javascript">
+    RED.nodes.registerType('ui_numeric',{
+        category: 'ui',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value: ''},
+            controlId: {value: '', required: true}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "ui.png",
+        paletteLabel: 'numeric',
+        label: function() {
+            return this.name || (this.controlId + " numeric");
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="ui_numeric">
+    <div class="form-row">
+        <label for="node-input-controlId"><i class="icon-tasks"></i> Id</label>
+        <input type="text" id="node-input-controlId" placeholder="Numeric Id">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="ui_numeric">
+    <p>TODO</p>
+</script>

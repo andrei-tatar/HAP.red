@@ -30,6 +30,13 @@ function ControlSync(events) {
         });
     });
 
+    events.on('numeric-changed', function (data) {
+        var controls = findControls(data.id, 'numeric');
+        controls.forEach(function (ctrl) {
+            ctrl.value = data.value;
+        });
+    });
+
     function findControls(id, type) {
         var key = id + '-' + type;
         var cached = cachedSearches[key];

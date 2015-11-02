@@ -114,7 +114,7 @@ function UiLoader($http, $q, $interpolate) {
                 control.min = control.min || 0;
                 control.max = control.max || 100;
                 control.value = control.value || control.min;
-                control.format = control.format || '{value}';
+                control.getText = $interpolate(control.format || '{{value}}').bind(null, control);
                 break;
         }
 

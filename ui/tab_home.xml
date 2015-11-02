@@ -15,8 +15,8 @@
             <text id="info">{{payload}}</text>
         </row>
         <row alignment="space-between">
-            <text>Level</text>
-            <numeric min="10" max="20"></numeric>
+            <text>Temperature</text>
+            <numeric id="numeric1" min="0" max="10" format="{{value}} ° C"></numeric>
         </row>
     </group>
     <group url="group_music.xml"/>

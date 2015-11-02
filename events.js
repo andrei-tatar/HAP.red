@@ -7,7 +7,7 @@ module.exports = function (RED) {
     var handlers = {};
     var state = {};
     var ignoreStateEvents = ['show-toast'];
-    var forwardEvents = ['switch-changed', 'slider-changed'];
+    var forwardEvents = ['switch-changed', 'slider-changed', 'numeric-changed'];
 
     io.on('connection', function(socket) {
         replayStateEvents(socket);
