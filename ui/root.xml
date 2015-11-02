@@ -1,8 +1,4 @@
 <ui title="HAP.red">
 	<tab url="tab_home.xml"/>
-	<tab header="Click me">
-		<group header="Some Group">
-			<text>You can have multiple tabs! :)</text>
-		</group>
-	</tab>
+	<tab url="tab_status.xml"/>
 </ui>

@@ -1,0 +1,12 @@
+<tab header="Status">
+    <group header="Living">
+        <row alignment="space-between">
+            <text>TV</text>
+            <text id="living media power">{{payload.tv?'on':'off'}}</text>
+        </row>
+        <row alignment="space-between">
+            <text>Amplificator</text>
+            <text id="living media power">{{payload.amplif?'on':'off'}}</text>
+        </row>
+    </group>
+</tab>
