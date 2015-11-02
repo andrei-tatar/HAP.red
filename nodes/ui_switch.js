@@ -1,7 +1,5 @@
-var hap = require('./common');
-
 module.exports = function(RED) {
-    var events = hap(RED);
+    var events = require('../events')(RED);
 
     function SwitchNode(config) {
         RED.nodes.createNode(this, config);

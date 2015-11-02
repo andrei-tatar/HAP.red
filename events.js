@@ -1,9 +1,8 @@
-var socketio = require('socket.io');
-
-module.exports = function(RED) {
+module.exports = function (RED) {
     if (RED.server.hapEvents)
         return RED.server.hapEvents;
 
+    var socketio = require('socket.io');
     var io = socketio(RED.server);
     var handlers = {};
     var state = {};
@@ -15,18 +14,29 @@ module.exports = function(RED) {
 
         socket.on('ui', function (msg) {
             var eventHandlers = handlers[msg.event];
-            if (!eventHandlers) return;
-            eventHandlers.forEach(function(handler) {
-                handler(msg.data, socket);
-            });
+            if (eventHandlers)
+                eventHandlers.forEach(function(handler) {
+                    handler(msg.data, socket);
+                });
 
-            if (forwardEvents.indexOf(msg.event) != -1)
+            if (forwardEvents.indexOf(msg.event) !== -1) {
+                storeEventAsState(msg.event, msg.data);
                 io.emit('ui', msg);
+            }
         });
 
         socket.on('disconnect', function(){
         });
     });
+
+    function storeEventAsState(event, data) {
+        if (ignoreStateEvents.indexOf(event) !== -1)
+            return;
+
+        var eventState = state[event];
+        if (!eventState) state[event] = eventState = {};
+        eventState[data.id] = data;
+    }
 
     function replayStateEvents(socket) {
         var events = Object.getOwnPropertyNames(state);
@@ -66,12 +76,9 @@ module.exports = function(RED) {
                 if (!socket)
                     throw new Error("trying to send message to a missing or closed socket");
                 to = socket;
-            } else if (ignoreStateEvents.indexOf(event) === -1) {
-                var eventState = state[event];
-                if (!eventState) state[event] = eventState = {};
-
-                eventState[data.id] = data;
             }
+
+            storeEventAsState(event, data);
 
             to.emit('ui', {
                 event: event,
