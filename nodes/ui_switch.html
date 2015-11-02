@@ -1,24 +1,25 @@
 <script type="text/javascript">
-    RED.nodes.registerType('slider',{
+    RED.nodes.registerType('ui_switch',{
         category: 'ui',
         color: '#a6bbcf',
         defaults: {
             name: {value: ''},
-            controlId: {value: '', required: true},
+            controlId: {value: '', required: true}
         },
         inputs:1,
         outputs:1,
         icon: "ui.png",
+        paletteLabel: 'switch',
         label: function() {
-            return this.name || (this.controlId + " slider");
+            return this.name || (this.controlId + " switch");
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="slider">
+<script type="text/x-red" data-template-name="ui_switch">
     <div class="form-row">
         <label for="node-input-controlId"><i class="icon-tasks"></i> Id</label>
-        <input type="text" id="node-input-controlId" placeholder="Slider Id">
+        <input type="text" id="node-input-controlId" placeholder="Switch Id">
     </div>
 
     <div class="form-row">
@@ -27,6 +28,6 @@
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="slider">
+<script type="text/x-red" data-help-name="ui_switch">
     <p>TODO</p>
 </script>

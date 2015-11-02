@@ -1,27 +1,23 @@
 <script type="text/javascript">
-    RED.nodes.registerType('text',{
+    RED.nodes.registerType('ui_toast',{
         category: 'ui',
         color: '#a6bbcf',
         defaults: {
             name: {value: ''},
-            controlId: {value: '', required: true},
             sendTo: {value: "all", required: true}
         },
         inputs:1,
         outputs:0,
         align: "right",
         icon: "ui.png",
+        paletteLabel: 'toast',
         label: function() {
-            return this.name || ("update text " + this.controlId);
+            return this.name || "show toast";
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="text">
-    <div class="form-row">
-        <label for="node-input-controlId"><i class="icon-tasks"></i> Id</label>
-        <input type="text" id="node-input-controlId" placeholder="Text Id">
-    </div>
+<script type="text/x-red" data-template-name="ui_toast">
     <div class="form-row">
         <label for="node-input-sendTo"><i class="icon-random"></i> Send to</label>
         <select id="node-input-sendTo">
@@ -35,6 +31,6 @@
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="text">
-    <p>A ui text output node. Updates the text on UI with the parameters from <b>msg.payload</b>.
+<script type="text/x-red" data-help-name="ui_toast">
+    <p>TODO</p>
 </script>

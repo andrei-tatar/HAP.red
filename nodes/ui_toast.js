@@ -1,4 +1,4 @@
-var hap = require('./hap');
+var hap = require('./common');
 
 module.exports = function(RED) {
     var events = hap(RED);
@@ -13,5 +13,5 @@ module.exports = function(RED) {
         });
     }
 
-    RED.nodes.registerType("toast", ToastNode);
+    RED.nodes.registerType("ui_toast", ToastNode);
 };
