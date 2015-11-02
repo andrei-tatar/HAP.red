@@ -29,14 +29,14 @@ module.exports = function(RED) {
         if (buffer.length % 2 != 0)
             return;
 
-        var pulses = [], i;
-        for (i=0; i<buffer.length; i+=2) {
+        var pulses = [];
+        for (var i=0; i<buffer.length; i+=2) {
             var pulse = (buffer[i] << 8) | buffer[i+1];
             pulses.push(pulse);
         }
 
-        for (i=0; i<ir_plugins.length; i++) {
-            var decoded = ir_plugins[i].decode(pulses);
+        for (var j=0; j<ir_plugins.length; j++) {
+            var decoded = ir_plugins[j].decode(pulses);
             if (decoded)
                 return decoded;
         }
@@ -46,14 +46,13 @@ module.exports = function(RED) {
         for (var i=0; i<ir_plugins.length; i++) {
             var pulses = ir_plugins[i].encode(code);
             if (pulses) {
-                var data = [];
-                for (i=0; i<pulses.length; i++) {
-                    var pulse = pulses[i];
-                    data.push(pulse >> 8);
-                    data.push(pulses & 0xFF);
+                var data = new Buffer(pulses.length * 2);
+                for (var j=0; j<pulses.length; j++) {
+                    var pulse = pulses[j];
+                    data[j*2]   = pulse >> 8;
+                    data[j*2+1] = pulse & 0xFF;
                 }
-
-                return new Buffer(data);
+                return data;
             }
         }
     }

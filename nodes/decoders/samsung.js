@@ -10,10 +10,6 @@ module.exports = function() {
 
     var stop_mark = 590;
 
-    function matches(value, target) {
-        return Math.abs(value - target) / target * 100 < max_error;
-    }
-
     this.decode = function(pulses) {
         if (pulses.length != 67 || !matches(pulses[0], header_mark) || !matches(pulses[1], header_space))
             return undefined;
@@ -54,14 +50,22 @@ module.exports = function() {
         if (isNaN(nr))
             return undefined;
 
-        var message = nr.toString(2);
+        var message = padLeft(nr.toString(2), 32);
         var pulses = [header_mark, header_space];
         for (var i=0; i<32; i++) {
             pulses.push(bit_mark);
-            pulses.push(i < message.length ? (message[i] == '1' ? one_space : zero_space) : zero_space);
+            pulses.push(message[i] == '1' ? one_space : zero_space);
         }
         pulses.push(bit_mark);
 
         return pulses;
     };
+
+    function matches(value, target) {
+        return Math.abs(value - target) / target * 100 < max_error;
+    }
+
+    function padLeft(nr, count){
+        return new Array(count - nr.length + 1).join('0') + nr;
+    }
 };

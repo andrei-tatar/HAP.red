@@ -9,10 +9,6 @@ module.exports = function() {
     var zero_space = 562;
     var one_space = 1687;
 
-    function matches(value, target) {
-        return Math.abs(value - target) / target * 100 < max_error;
-    }
-
     this.decode = function (pulses) {
         if (pulses.length < 3)
             return undefined;
@@ -34,13 +30,13 @@ module.exports = function() {
         for (var i = 0; i < 32; i++) {
             message *= 2;
 
-            if (!matches(pulses[2 + i * 2], bit_mark))
+            if (!matches(pulses[2 + i*2], bit_mark))
                 return undefined;
 
-            if (matches(pulses[3 + i * 2], zero_space))
+            if (matches(pulses[3 + i*2], zero_space))
                 continue;
 
-            if (matches(pulses[3 + i * 2], one_space)) {
+            if (matches(pulses[3 + i*2], one_space)) {
                 message += 1;
                 continue;
             }
@@ -69,14 +65,22 @@ module.exports = function() {
         var nr = parseInt(parts[1], 16);
         if (isNaN(nr)) return undefined;
 
-        var message = nr.toString(2);
+        var message = padLeft(nr.toString(2), 32);
         var pulses = [header_mark, header_space];
         for (var i=0; i<32; i++) {
             pulses.push(bit_mark);
-            pulses.push(i < message.length ? (message[i] == '1' ? one_space : zero_space) : zero_space);
+            pulses.push(message[i] === '1' ? one_space : zero_space);
         }
         pulses.push(bit_mark);
 
         return pulses;
     };
+
+    function matches(value, target) {
+        return Math.abs(value - target) / target * 100 < max_error;
+    }
+
+    function padLeft(nr, count){
+        return new Array(count - nr.length + 1).join('0') + nr;
+    }
 };
