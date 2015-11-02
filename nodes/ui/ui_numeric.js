@@ -17,10 +17,7 @@ module.exports = function(RED) {
                 node.send({payload: msg.value, socketId: socket.id});
         });
 
-        node.on("close", function (done) {
-            dispose();
-            done();
-        });
+        node.on("close", dispose);
     }
 
     RED.nodes.registerType("ui_numeric", NumericNode);
